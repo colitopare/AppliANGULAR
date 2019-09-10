@@ -1,0 +1,36 @@
+<b-container>
+  <h2>Liste des clients</h2>
+
+  <a routerLink="/clients/new" class="btn btn-primary">Ajouter un client</a>
+
+  <b-table class="table-over">
+    <tr class="b-head">
+      <th>Numéro</th>
+      <th>Client</th>
+      <th>Factures</th>
+      <th>Montant total</th>
+      <th></th>
+    </tr>
+
+    <tr class="b-body" *ngFor="let client of clients">
+      <td>{{ client.id }}</td>
+      <td>{{ client.firstName }} {{ client.lastName | uppercase }}</td>
+      <td>
+        <b-badge>
+          {{ client.invoices }}
+        </b-badge>
+      </td>
+      <td>
+        {{ client.totalAmount | currency: "EUR":"symbol":"1.2-2":"fr" }}
+      </td>
+      <td>
+        <a
+          routerLink="/clients/{{ client.id }}"
+          class="btn btn-primary btn-sm mr-1"
+          >Modifier</a
+        >
+        <button class="btn btn-danger btn-sm">Supprimer</button>
+      </td>
+    </tr>
+  </b-table>
+</b-container>

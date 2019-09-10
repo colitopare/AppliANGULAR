@@ -1,0 +1,84 @@
+<h2 *ngIf="client">Modification d'un client</h2>
+<h2 *ngIf="!client">Création d'un client</h2>
+
+{{ client | json }}
+<hr />
+{{ clientForm.value | json }}
+
+<form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      name="firstName"
+      [ngModel]="client?.firstName"
+      required
+      minlength="3"
+      placeholder="Prénom"
+      ngModel
+      #firstName="ngModel"
+      [class.is-invalid]="
+        firstName.errors && (firstName.touched || clientForm.submitted)
+      "
+    />
+
+    <div
+      class="invalid-feedback"
+      *ngIf="firstName.errors && (firstName.touched || clientForm.submitted)"
+    >
+      <span *ngIf="firstName.errors.required">Le prénom est obligatoire</span>
+      <span *ngIf="firstName.errors.minlength">
+        Le prénom doit contenir 3 caractères
+      </span>
+    </div>
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      name="lastName"
+      placeholder="Nom"
+      [ngModel]="client?.lastName"
+      required
+      minlength="3"
+      ngModel
+      #lastName="ngModel"
+      [class.is-invalid]="
+        lastName.errors && (lastName.touched || clientForm.submitted)
+      "
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="lastName.errors && (lastName.touched || clientForm.submitted)"
+    >
+      <span *ngIf="lastName.errors.required">Le nom est obligatoire</span>
+      <span *ngIf="lastName.errors.minlength">
+        Le nom doit contenir 3 caractères
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="email"
+      class="form-control"
+      name="email"
+      [ngModel]="client?.email"
+      placeholder="email"
+      ngModel
+    />
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      name="compagny"
+      [ngModel]="client?.compagny"
+      placeholder="Société"
+      ngModel
+    />
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+  </div>
+</form>
